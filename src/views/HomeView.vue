@@ -1,8 +1,8 @@
 <template>
   <main>
     <p>A sofware engineer who sometimes dabbles in front-end development.</p>
-    <p><a href="https://github.com/yanvill/yanvill.github.io">Github Link</a></p>
-    <p><a href="www.linkedin.com/in/yannick-villanueva">Linkedin</a></p>
+    <p><a href="https://github.com/yanvill" target="none">Github Link</a></p>
+    <p><a href="https://linkedin.com/in/yannick-villanueva" target="none">Linkedin</a></p>
   </main>
 </template>
 

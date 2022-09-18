@@ -10,13 +10,14 @@ import MinesweeperSettings from "@/components/MinesweeperSettings.vue";
       :game-board="gameBoard"
       :hints="gameHints"
       :disabled="gameDisabled"
+      :game-status="gameStatus"
       @cell-clicked="handleCellClicked"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { CellState, DefaultsSettings } from "../types/minesweeper";
+import { CellState, DefaultsSettings, GameStatus } from "../types/minesweeper";
 import type { CellClickedEvent, GameSettings } from "../types/minesweeper";
 import BoardUtility from "@/utils/MinesweeperBoardUtility";
 import { defineComponent } from "vue";
@@ -29,35 +30,30 @@ export default defineComponent({
       boardUtility: INITIAL_UTILITY,
       gameBoard: INITIAL_UTILITY.board,
       gameHints: INITIAL_UTILITY.hints,
-      gameDisabled: false,
+      gameStatus: GameStatus.New,
     };
   },
   computed: {
+    gameDisabled(): boolean {
+      return [GameStatus.Lost, GameStatus.Won].includes(this.gameStatus);
+    },
     cells() {
       return this.gameBoard.reduce((acc, val) => acc.concat(val), []);
-    },
-    gameInProgress(): boolean {
-      if (this.gameDisabled) return false;
-      let untouchedCount = this.cells.filter((cell) => {
-        return cell == CellState.Untouched || cell == CellState.UntouchedBomb;
-      }).length;
-
-      return untouchedCount != this.cells.length;
     },
   },
   methods: {
     setupGame(settings: GameSettings) {
       let startNewGame: boolean = true;
 
-      if (this.gameInProgress) {
-        startNewGame = confirm("Are you sure you want to start a new game?");
+      if (this.gameStatus == GameStatus.InProgress) {
+        startNewGame = window.confirm("Are you sure you want to start a new game?");
       }
 
       if (startNewGame) {
         this.boardUtility = new BoardUtility(settings);
         this.gameBoard = this.boardUtility.board;
         this.gameHints = this.boardUtility.hints;
-        this.gameDisabled = false;
+        this.gameStatus = GameStatus.New;
       }
     },
     handleCellClicked(event: CellClickedEvent) {
@@ -81,9 +77,8 @@ export default defineComponent({
       if (next == undefined) return;
 
       this.gameBoard[x][y] = next;
-      if (next == CellState.Exploded) this.handleExplosion();
 
-      this.checkGameCleared();
+      this.updateGameStatus();
 
       if (this.gameHints[x][y] == 0) {
         this.boardUtility.getAdjacentCells(x, y).forEach((loc) => {
@@ -106,10 +101,14 @@ export default defineComponent({
 
       this.gameBoard[x][y] = next;
     },
-    handleExplosion() {
-      this.gameDisabled = true;
-    },
-    checkGameCleared() {
+    updateGameStatus() {
+      if (this.cells.includes(CellState.Exploded)) {
+        this.gameStatus = GameStatus.Lost;
+        return;
+      }
+
+      this.gameStatus = GameStatus.InProgress;
+
       let clearedCount = this.cells.filter((cell) => {
         return cell == CellState.Cleared || cell == CellState.Flagged || cell == CellState.Unsure;
       }).length;
@@ -118,11 +117,8 @@ export default defineComponent({
       }).length;
 
       if (bombCount + clearedCount == this.cells.length) {
-        this.handleGameCleared();
+        this.gameStatus = GameStatus.Won;
       }
-    },
-    handleGameCleared() {
-      this.gameDisabled = true;
     },
   },
 });
