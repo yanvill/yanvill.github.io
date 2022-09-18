@@ -14,6 +14,11 @@ const router = createRouter({
       name: "minesweeper",
       component: () => import("@/views/MinesweeperView.vue"),
     },
+    {
+      path: "/a-great-ui",
+      name: "great-ui",
+      component: () => import("@/views/GreatUiView.vue"),
+    },
   ],
 });
 

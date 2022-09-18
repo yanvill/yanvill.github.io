@@ -5,7 +5,8 @@
   "compilerOptions": {
     "composite": true,
     "lib": [
-      "ES2021"
+      "es2016",
+      "dom"
     ],
     "baseUrl": ".",
     "paths": {

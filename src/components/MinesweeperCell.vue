@@ -90,7 +90,6 @@ export default defineComponent({
   background: default;
 }
 
-
 .minesweeper-cell.untouched {
   background: grey;
 }

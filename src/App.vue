@@ -11,6 +11,7 @@ import GreetingsMessage from "./components/GreetingsMessage.vue";
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/minesweeper">Minesweeper</RouterLink>
+        <RouterLink to="/a-great-ui"><i>Great</i> UI</RouterLink>
       </nav>
     </div>
   </header>
