@@ -37,7 +37,7 @@ export const SizeMap = new Map<Size, [number, number]>([
 export const DifficultyBombPercentageMap = new Map<Difficulty, number>([
   [Difficulty.Hard, 0.4],
   [Difficulty.Medium, 0.2],
-  [Difficulty.Easy, 0.05],
+  [Difficulty.Easy, 0.1],
 ]);
 
 export const DefaultsSettings = {

@@ -5,6 +5,11 @@ import MinesweeperSettings from "@/components/MinesweeperSettings.vue";
 
 <template>
   <div class="controller">
+    <div class="description">
+      <p>
+        <a href="https://en.wikipedia.org/wiki/Minesweeper_(video_game)" target="none">Minesweeper Wiki Page</a>
+      </p>
+    </div>
     <MinesweeperSettings @new-game="setupGame" />
     <MinesweeperGrid
       :game-board="gameBoard"

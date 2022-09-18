@@ -86,6 +86,11 @@ export default defineComponent({
   cursor: default;
 }
 
+.minesweeper-cell.disabled:hover {
+  background: default;
+}
+
+
 .minesweeper-cell.untouched {
   background: grey;
 }

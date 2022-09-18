@@ -63,19 +63,27 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   text-align: center;
-  transition: 0.6s linear;
+  transition: 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53);
   --border-radius: 1rem;
   --border-size: 0.5rem;
 }
 
 @keyframes spin {
-  from {transform: translate(-50%, -50%) rotate(0);}
-  to   {transform: translate(-50%, -50%) rotate(360deg);}
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  from {transform: translate(-50%, -50%) rotate(0);}
-  to   {transform: translate(-50%, -50%) rotate(360deg);}
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .rotating-border.won {
@@ -92,7 +100,7 @@ export default defineComponent({
   position: relative;
   overflow: hidden;
   padding: calc(var(--padding) + var(--border-size));
-  border-radius: var(--border-radius);
+  border-radius: 10px;
   display: inline-block;
 }
 
@@ -113,7 +121,7 @@ export default defineComponent({
 }
 
 .rotating-border::after {
-  content: '';
+  content: "";
   position: absolute;
   top: var(--border-size);
   right: var(--border-size);
