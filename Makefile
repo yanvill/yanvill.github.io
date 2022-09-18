@@ -1,4 +1,5 @@
 deploy:
+	rm -rf ./dist
 	sh ./scripts/deploy.sh
 
 build:
